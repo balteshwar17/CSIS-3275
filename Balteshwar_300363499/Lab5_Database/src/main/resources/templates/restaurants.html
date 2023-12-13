@@ -1,0 +1,152 @@
+    <!DOCTYPE html>
+    <html lang="en" xmlns:th="http:///www.thymeleaf.org"
+          xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!--          layout:decorate="file1">-->
+    <head>
+        <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+        <title>Restaurants</title>
+        <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+              rel="stylesheet">
+        <script
+                src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script
+        >
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+                integrity="sha384-
+    Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
+                crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-
+        KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-
+ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                integrity="sha384-
+JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                integrity="sha384-
+JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
+        <style>
+
+            .bluebox {
+                background-color: blue;
+                color: white; /* Text color */
+                padding: 10px; /* Padding for better visibility */
+            }
+
+        .pre-scrollable{
+            height:500px;
+            overflow-y:scroll;
+        }
+        h1 {
+            text-align: center;
+        }
+        </style>
+        <script th:inline="javascript">
+            var u=[[${session.a}]];
+            if(u==3){
+                alert('One record added');
+            }
+        </script>
+        </style>
+        <script th:inline="javascript">
+            var u=[[${session.e}]];
+            if(u==2){
+                alert('One record edited');
+            }
+        </script>
+    </head>
+
+
+
+    <body>
+
+    <h1>Final Exam Set C</h1>
+    <br>
+    <h1>Category Sales Summary Table</h1>
+
+    <div class="container mt-2 pre-scrollable">
+        <div class="card-body">
+
+        <div class="bluebox">
+            <form method="post" th:action="@{save}">
+                <div>
+                    <label>Receipt No:</label>
+                    <input class="form-control" type="text" name="recno" placeholder="0"
+                           >
+                    <span ></span>
+                </div>
+                <br>
+                <div>
+                    <label>Item Type:</label>
+                    <select id="myDropdown">
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="J102A">J102A: Coke</option>
+                        <option value="J102B">J102B: Vines Paper pad</option>
+                        <option value="J102B">J102B: Pepsi</option>
+                        <option value="J102B">J103C: Purina Dog Food</option>
+                        <option value="J102B">J101C: Xyz Eraser</option>
+                        <option value="J102B">J103D: Dog Chew Toy</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+                <div>
+                    <label>Quantity:</label>
+                    <input class="form-control" type="double" name="dos" placeholder="0.0"
+                    >
+                    <span ></span>
+                </div>
+                <br>
+                <div>
+                    <label for="transactionDate">Transaction Date:</label>
+                    <input class="form-control" type="date" name="transactionDate" id="transactionDate">
+                    <span></span>
+                </div>
+                <br>
+                <button type="button" onclick="validateForm()" class="btn-primary" th:href="@{/hgt}">
+                    Save
+                </button>
+
+            </form>
+        </div>
+        <script>
+
+            var today = new Date().toISOString().split('T')[0];
+            document.getElementById('transactionDate').value = today;
+            function validateForm() {
+                var quantity = document.getElementById('dos').value;
+                System.out.println("Showing up");
+                if (quantity === '' || parseFloat(quantity) === 0) {
+                    alert('Quantity cannot be 0.');
+                } else {
+                    document.getElementById('myForm').submit();
+                }
+            }
+        </script>
+
+
+
+<!--    <tbody>-->
+<!--    <tr th:each="p:${listRestaurants}">-->
+<!--        <td th:text="${p.getId()}"></td>-->
+<!--        <td th:text="${p.getName()}"></td>-->
+<!--        <td th:text="${p.getDos()}"></td>-->
+<!--        <td th:text="${p.isPassed()}"></td>-->
+<!--        <td th:text="${p.getRating()}"></td>-->
+<!--        <td>-->
+<!--            <a class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this record ?')" th:href="@{delete(id=${p.id})}">Delete</a>-->
+<!--            <a class="btn btn-success" th:href="@{editrestaurant(id=${p.id})}">Edit</a>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+
+    </div>
+    </div>
+    </body>
+    </html>
